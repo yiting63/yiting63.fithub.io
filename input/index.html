@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		
+		<style type="text/css">
+			
+			*{
+				margin: 0px;
+				padding: 0px;
+				box-sizing: border-box;
+			}
+			form{
+				width: 300px;
+				height: 250px;
+				background-color: mediumspringgreen;
+				position: absolute;	
+				left: 0px;
+				right: 0px;
+				top: 0px;
+				bottom: 0px;
+				margin: auto;	
+				padding-top: 20px;
+				text-align: center;				
+			}
+			
+		form	div{
+			padding: 5px;
+			
+			}
+			
+			form input[type="submit"]{
+				margin: 5px;
+				text-align: center;
+				width: 100px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<form action="http://10.100.7.35/server.php" method="post">
+			<div >
+				<label for="username">用户名:</label>
+				<input type="text" name="username" id="username" value="" />
+			</div>
+			<div >
+				<label for="pwd">密&nbsp;&nbsp;码:</label>
+				<input type="text" name="pwd" id="pwd" value="" />
+			</div>
+			<div >
+				<label for="e_mail">邮&nbsp;&nbsp;箱:</label>
+				<input type="email" name="e_mail" id="email" value="" />
+			<div >
+			<label for="sex">性&nbsp;&nbsp;别:</label>
+			<input type="radio" name="sex" checked="checked"/>男
+			<input type="radio" name="sex" />女
+			颜色：
+			<input type="color" name="" id="" value="" />
+
+				
+			<div >
+			<input type="submit" value="注册"/></div>
+				<input type="reset" name="" id="" value="重置" />
+		
+			</div>
+	</body>
+</html>
