@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>猜数字游戏</title>
+		<style type="text/css">
+		 #all{
+		 	width: 300px;
+		 	height: 300px;
+		 	margin: auto;
+		 	position: absolute;
+		 	left: 0;
+		 	right: 0;
+		 	top: 0;
+		 	bottom: 0;
+		 	border: 1px solid #000;
+		 }
+		 #all h2{
+		 	text-align: center;
+		 }
+		 #all #guess{
+		 	width: 250px;
+		 	margin: auto;
+		 }
+		 #all #number{
+		 	border: none;
+		 	outline: none;
+		 	border: 1px solid #000;
+		 	width: 186px;
+		 	height: 20px;
+		 	border-radius: 20px 0 0 20px;
+		 	text-indent: 15px;
+		 }
+		 #all #button{
+		 	border: none;
+		 	outline: none;
+		 	border: 1px solid #000;
+		 	width: 55px;
+		 	height: 24px;
+		 	border-radius: 0 20px 20px 0;
+		 	left:-5px;
+		 	top: 1px;
+		 	background-color: white;
+		 	position: relative;
+		 }
+		 .tip{
+		 	text-indent: 30px;
+		 }
+		 #guesstext{
+		 	font-size: 10px;
+		 	color: #000;
+		 }
+		</style>
+	</head>
+	<body>
+	<div id="all">
+		<h2>猜数字游戏</h2>
+		<div id="guess">
+			<input id="number"  type="number" placeholder="0-10整数，6次机会" />
+			<input id="button"  onclick="guess()"   type="button" value="提交"  />
+		</div>
+		<div class="tip">
+			<p>剩余次数: </p>
+			<p>猜测历史:<p>
+			<p id="guesstext"></p>
+		</div>
+	</div>	
+	<script>
+		var targetNum = parseInt(Math.random()*11);
+		console.log(targetNum);
+		var guessTimes = 6;
+		var onumber = document.getElementById("number");
+		var obutton = document.getElementById("button");
+		var oguesstext = document.getElementById("guesstext");
+		
+		function guess(){
+		if (onumber.value>targetNum) {
+			oguesstext.innerHTML = "<br/>你输入的数"+onumber.value+"，有点大，可以再小一点";
+			
+		} 
+		else if(onumber.value<targetNum){
+			oguesstext.innerHTML = "<br/>你输入的数"+onumber.value+"，有点小，可以再大一点";
+		}
+		else if(onumber.value=targetNum){
+			oguesstext.innerHTML="恭喜你猜对了，正确答案是"+onumber.value+".<br>";
+		}
+		else
+		{
+			oguesstext.innerHTML="非正常情况<br>";
+		}
+		   
+		   onumber.value="";
+		   onumber.focus();
+	
+		   
+		}
+		
+		
+	</script>	
+		
+	</body>
+</html>
