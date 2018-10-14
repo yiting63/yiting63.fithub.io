@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				background-color: #11113f;
+				color: white;
+				font-family: 'Petit Formal Script', cursive;
+				overflow: hidden;
+			}
+			
+			.title {
+				position: absolute;
+				text-align: center;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate3d(-50%, -50%, 0);
+				transform: translate3d(-50%, -50%, 0);
+				z-index: 10;
+				font-size: 1.6em;
+			}
+			
+			.snow {
+				width: 20px;
+				height: 20px;
+				background-color: #fff;
+				border-radius: 100%;
+				position: fixed;
+				left: 100px;
+				top: 300px;
+				opacity: 0.3;
+				filter: blur(4px);
+				z-index: 3;
+				/*
+				 随机大小、位置、透明度、模糊程度、速度 、z-index    属性
+				 飘动                                                                                       方法
+				 * */
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="title">
+			<h1>Happy Holidays</h1>
+		</div>
+		<script type="text/javascript">
+			//常用方法
+			function random(min, max, isInt) {
+				var a = min + Math.random() * (max - min);
+				return isInt ? parseInt(a) : a;
+			}
+			var winW = window.innerWidth;
+			var winH = window.innerHeight;
+			var snow;
+
+			class Snow {
+				//构造方法
+				constructor() {
+					this.size = random(8, 20, true);
+					this.alpha = random(0.2, 1, false);
+					this.blur = random(0, 2, false);
+					this.x = random(0, winW, true);
+					this.y = random(-winH / 2, 0, true);
+					this.z = random(1, 20, true);
+					this.speed = random(1, 3, false);
+					this.angle = 0;
+					this.angleSpeed = random(0, 2 * Math.PI, false) / 100;
+					this.o = null;
+				}
+				//绘制雪花
+				draw() {
+					//document  createElement
+					this.o = document.createElement("div");
+					this.o.className = "snow";
+					document.body.appendChild(this.o);
+					this.o.style.width = this.o.style.height = this.size + "px";
+					this.o.style.opacity = this.blur;
+					this.o.style.filter = `blur(${this.blur}px)`;
+					this.o.style.left = this.x + "px";
+					this.o.style.top = this.y + "px";
+				}
+				//飘落雪花
+				update() {
+					this.angle += this.angleSpeed;
+					this.x += Math.cos(this.angle);
+					this.y += this.speed;
+					this.o.style.top = this.y + "px";
+					this.o.style.left = this.x + "px";
+
+					if(this.y > winH + 10) {
+						this.y = random(-winH / 2, 0, true);
+					}
+				}
+			}
+
+			class Weather {
+				constructor(snowNum, wind) {
+					this.snowNum = snowNum;
+					this.wind = wind;
+					this.snowArray = [];
+				}
+				createSnow() {
+					for(var i = 0; i < this.snowNum; i++) {
+						snow = new Snow();
+						snow.draw();
+						this.snowArray.push(snow);
+					}
+				}
+				runSnow() {
+					var that = this;
+					function run () {
+						for(var i = 0; i < that.snowNum; i++) {
+							that.snowArray[i].update();
+						}
+						window.requestAnimationFrame(run);
+					}
+					window.requestAnimationFrame(run);
+				}
+			}
+
+			var weather = new Weather(100, 3);
+			weather.createSnow();
+			weather.runSnow();
+			/*
+			 下雪的案例面向对象分析
+			 	雪花
+			 		属性  大小  透明度 模糊程度 初始位置x 初始位置y z轴序号
+			 		方法  构造方法  飘落
+			 	天气
+			 		属性  雪量  风量 风向
+			 		方法 生成雪花  雪花运动
+			 	场景
+			 		属性  宽  高  是否折回
+			 		方法  重新设置场景属性
+			 * */
+		</script>
+	</body>
+</html>
